@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="utf-8">
+		<title>ISNET</title>
+		<link rel="stylesheet" type="text/css" href="style/main.css">
+	</head>
+	<body>
+	<!-- credit where credit is due, pcjs.org's version of windows 95 was a huge help with getting the look right. -->
+		<div class="desktop">
+			<canvas id="glCanv"></canvas>
+
+			<div id="webContent"></div>
+
+			<footer id="taskbar">
+			<button id="start">Start</button>
+			<div id="clock">10:00 PM</div>
+			</footer>
+		</div>
+		
+		<div id="home">
+			<div id="homepage">
+				<header class="bord"> 
+					<h1>THE HOME PAGE</h1>
+					<p>To the main portal page</p>
+				</header>
+				<main>
+					<div id='sidebar'>
+						<nav class ="bord">
+							<img src="img/links.gif">
+							<ul>
+								<a href="wwr/index.html">WWR</a>
+								<a href="ice/index.html">ICE CHALLENGES</a>
+								<a href="about/index.html">ABOUT</a>
+							</ul>
+						</nav>
+						<div id="cutout" class="bord">
+							<table>
+								<tr>
+									<td></td>
+									<td></td>
+								</tr>
+								<tr>
+									<td></td>
+									<td></td>
+								</tr>
+								<tr>
+									<td></td>
+									<td></td>
+								</tr>
+							</table>
+						</div>
+					</div>
+					<div id="Hcontent">
+						<h2 id='welc' class="bord">Welcome!</h2>
+						<div id="intro" class="bord">
+							<p>
+								<em id="splash">this is the main landing page, hopefully you find it well. this will be improved greatly later, please be patient.</em>
+								<br> hi yall, this body is more of a changelog and updates. almost a blog!
+							</p>
+							<img src="img/city.gif" ID="city">
+						</div>
+					</div>
+				</main>
+				<footer>
+					<h3>GIFs courtesy of the Internet Archive</h3>
+					<a href="https://gifcities.org/" id="ia"><img src="img/spinning-ia-logo.gif"></a>
+				</footer>
+			</div>
+		</div>
+		
+		<!-- most basic test shader (scrapped) -->
+		<script type='text/glsl' id='basicVert' src="shaders/vert/basic.glsl"></script>
+		<script type='text/glsl' id='basicFrag' src="shaders/frag/basic.glsl"></script>
+		
+		<!-- texture shader -->
+		<script type='text/glsl' id='texVert' src="shaders/vert/tex.glsl"></script>
+		<script type='text/glsl' id='texFrag' src="shaders/frag/tex.glsl"></script>
+		
+		
+		<script src="scripts/main.js"></script>
+	</body>
+</html>

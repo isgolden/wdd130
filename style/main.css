@@ -1,0 +1,360 @@
+/* MAIN PAGE */
+:root {
+	--lblue:rgba(0, 128, 128, 1);
+	--dblue:rgba(1, 0, 160, 1);
+	--dgray:rgba(0, 0, 0, 1);
+	--mgray:rgba(190, 190, 190, 1);
+	--white:rgba(254, 248, 254, 1);
+	--space:#100818;
+	--ICOSize:100px;
+}
+
+@font-face {
+	font-family:"W95";
+	src: url("../fonts/w95fa/W95F.otf") format("opentype"),
+	url("../fonts/w95fa/w95f.woff") format("woff"),
+	url("../fonts/w95fa/w95f.woff2") format("woff2");
+}
+@font-face {
+	font-family:"ari-W95-bold";
+	src: url("../fonts/ari-w9500-bold/ari-w9500-bold.woff2") format("woff2");
+}
+@font-face {
+	font-family:"cityburn";
+	src: url("../fonts/city_burn/cityburn-⌐.ttf");
+}
+@font-face {
+	font-family:"comicate";
+	src: url("../fonts/comicate/COMICATE.TTF");
+}
+@font-face {
+	font-family:"helveticamazing";
+	src: url("../fonts/helveticamazing/Helveticamazing.ttf");
+}
+@font-face {
+	font-family:"helv-punk";
+	src: url("../fonts/helvetica_punk/Helvetica Punk.ttf");
+}
+@font-face {
+	font-family:"panic";
+	src: url("../fonts/panic/Panic.ttf");
+}
+@font-face {
+	font-family:"troug";
+	src: url("../fonts/troubled_genius/TROUG___.TTF");
+}
+@font-face {
+	font-family:"VCR";
+	src: url("../fonts/vcr_osd_mono/VCR_OSD_MONO_1.001.ttf");
+}
+
+body {
+	overscroll-behavior:none;
+	flex-direction:column;
+	display:flex;
+	background-color:var(--lblue);
+	font-family:"W95";
+	width:100vw;
+	height:100vh;
+	padding:0px;
+	margin:0px;
+	overflow:hidden;
+}
+button {
+	background-color:var(--mgray);
+	border-style:solid;
+	border-width:1px;
+	border-top-color:var(--white);
+	border-left-color:var(--white);
+	border-bottom-color:var(--black);
+	border-right-color:var(--black);
+	font-family:"ari-W95-bold";
+}
+button:active {
+	border-top-color:var(--black);
+	border-left-color:var(--black);
+	border-bottom-color:var(--white);
+	border-right-color:var(--white);
+}
+
+#glCanv {
+	display:none;
+	position:absolute;
+	left:0px;
+	top:0px;
+}
+
+#webContent{
+	display:block;
+	width:100%;
+	height:calc(100vh - 35px);
+	overflow:hidden;
+}
+.WHIMPage {
+	flex-direction:column;
+	display:flex;
+	border-style:solid;
+	border-width:2px;
+	border-top-color:var(--white);
+	border-left-color:var(--white);
+	border-bottom-color:var(--black);
+	border-right-color:var(--black);
+	font-family:"W95";
+	position:absolute;
+	min-width:150px;
+	min-height:150px;
+	background-color:var(--mgray);
+}
+.WHIMTopBar {
+	background-color:var(--dblue);
+	font-family:"ari-W95-bold";
+	color:var(--white);
+	padding:2px;
+	margin:2px;
+	height:25px;
+	align-items:center;
+	display:flex;
+	justify-content:space-evenly;
+}
+.WHIMTitle {
+	user-select: none;
+	margin:auto;
+	max-width:50%;
+	white-space:nowrap;
+	overflow:hidden;
+	justify-self:center;
+	display:inline-block;
+}
+.WHIMNav{
+	display:flex;
+	height:100%;
+	margin-left:auto;
+}
+.WHIMNavButton {
+	margin:2px;
+	min-width:20px;
+	min-height:20px;
+	max-width:30px;
+	max-height:30px;
+	font-family:"W95";
+	aspect-ratio:1/1;
+	height:80%;
+	font-family:"ari-W95-bold";
+	line-height:0;
+}
+.WHIMContent {
+	scrollbar-gutter:stable;
+	border-style:solid;
+	border-width:2px;
+	border-top-color:var(--black);
+	border-left-color:var(--black);
+	border-bottom-color:var(--white);
+	border-right-color:var(--white);
+	flex-grow: 1;
+	box-sizing:border-box;
+	width:auto;
+	height:auto;
+	margin:3px;
+	overflow:scroll;
+	background-color:var(--white);
+}
+
+.ICO {
+	text-align:center;
+	background-color:white;
+	position:absolute;
+	width:var(--ICOSize);
+	height:var(--ICOSize);
+}
+.ICOIcon {
+	width:75%;
+	height:75%;
+	margin:auto;
+}
+.ICOName {
+	margin:auto;
+	overflow: hidden;
+	max-width:95%;
+	-webkit-line-clamp:10;
+	line-clamp:10;
+	text-overflow:ellipsis;
+}
+
+.desktop{
+	#taskbar {
+		align-items:center;
+		display:flex;
+		border-style:solid;
+		border-width:1px;
+		border-top-color:var(--white);
+		align-self:end;
+		background-color:var(--mgray);
+		width:100%;
+		height:35px;
+	}
+	#start {
+		height:90%;
+		margin:5px;
+	}
+	#clock {
+		display:flex;
+		align-items:center;
+		justify-content:center;
+		text-align:center;
+		line-height:100%;
+		padding:0px 5px 0px 5px;
+		height:90%;
+		margin: 5px 5px 5px auto;
+		background-color:var(--mgray);
+		border-style:solid;
+		border-width:1px;
+		border-top-color:var(--black);
+		border-left-color:var(--black);
+		border-bottom-color:var(--white);
+		border-right-color:var(--white);
+	}
+}
+
+#home {
+	overscroll-behavior:none;
+	background-attachment:fixed;
+	background-image:url("../img/space.webp");
+	width:100%;
+	height:100%;
+	
+}
+
+/* HOME PAGE */
+#homepage {
+	overflow-y:scroll;
+	overflow-x:hidden;
+	margin:auto;
+	background-color:rgba(230,235,250,1);
+	font-family:arial;
+	font-weight:bold;
+	width:80%;
+	height:100%;
+	max-width:1200px;
+	header{
+		margin:0;
+		display:block;
+		text-align:center;
+		font-family:"cityburn";
+		font-size:1.5em;
+		line-height:0.5;
+		width: 100%;
+		height:fit-content;
+		p {
+			border-width:0;
+			border-style:inset;
+			border-color:gray;
+			border-top-width:2px;
+			font-family:"helv-punk"
+		}
+	}
+	main{
+		overflow:hidden;
+		min-height:300px;
+		height:100%;
+	}
+	footer {
+		font-family:Times-new-roman;
+		font-weight:200;
+		color:white;
+		background: linear-gradient(180deg,rgba(0, 0, 0, 1) 0%, rgba(102, 95, 69, 1) 52%, rgba(189, 170, 113, 1) 100%);
+		border:5px inset gray;
+		margin-top:20px;
+		display:block;
+		width:100%;
+		height:fit-content:
+		#ia {
+			display:block;
+			width:50px;
+		}
+	}
+	.bord {
+		color:white;
+		background-color:var(--space);
+		border: solid 2px gray;
+	}
+	#sidebar {
+		display:grid;
+		grid-template-rows:1fr 1fr;
+		width:30%;
+		height:100%;
+		float:left;
+		nav {
+			overflow:hidden;
+			margin: 20px auto;
+			width: 90%;
+			height:100%;
+			text-align:center;
+		}
+		ul {
+			padding:0;
+			list-style:none;
+		}
+		a {
+			margin: 15px;
+			display:block;
+		}
+	}
+	#splash {
+		display:block;
+		color:gray;
+		font-size:0.75em;
+		background-color:rgba(255,255,255,0.1);
+	}
+	#Hcontent {
+		position:relative;
+		padding:0;
+		overflow:hidden;
+		font-family:Times-new-roman;
+		font-weight:200;
+		#welc {
+			font-size:100%;
+			overflow:hidden;
+			margin: 10px auto;
+			width:50%;
+			font-family:"troug";
+			text-align:center;
+		}
+		#intro{
+			margin: 20px;
+			padding: 0px 5px 0px 5px;
+			height: 100%;
+		}
+		height:80%;
+		float:right;
+		display:block;
+		width:70%;
+	}
+	#cutout {
+		table {
+			width:100%;
+			height:100%;
+			border:2px solid white;
+		}
+		td{
+			border:2px solid white;
+			width:50%;
+			height:33%
+		}
+		tr{
+			border:2px solid white;
+			height:33%;
+			width:50%;
+		}
+		margin:auto;
+		width:80%;
+		height:100%;
+		background-attachment: fixed;
+		background-image: url("../img/space.webp");
+	}
+	#city {
+		margin: auto auto;
+		bottom:0;
+		display:block;
+		width:100%;
+	}
+}
