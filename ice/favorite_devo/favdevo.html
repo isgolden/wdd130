@@ -1,0 +1,133 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400..900;1,400..900&display=swap" rel="stylesheet">
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>My Favorite Devotionals</title>
+  <link rel="stylesheet" href="styles/styles.css" />
+</head>
+<body>
+  <div class="container">
+    <header class="header">
+      <div class="header-image">
+        <img src="images/icenter.png">
+        <h1>My Favorite<br>Devotionals</h1>
+      </div>
+    </header>
+    <main>
+      <div class="content-box">
+      <table id="main-table">
+        <tr>
+          <th>Speaker</th>
+          <th>Title</th>
+          <th>Location</th>
+          <th>Year</th>
+        </tr>
+      </table>
+      <button id="add-entry">Add Entry</button>
+      </div>
+      <div id="input">
+        <button id="move-form">...<br>...</button>
+        <form>
+          <label for="speak">Speaker</label>
+          <input id="speak" class="entry-inp"></input>
+          <label for="title">Title</label>
+          <input id="title" class="entry-inp"></input>
+          <label for="loc">Location</label>
+          <input id="loc" class="entry-inp"></input>
+          <label for="year">Year</label>
+          <input id="year" type="date" class="entry-inp"></input>
+          <button type="button" id="submit-entry">Submit</button>
+        </form>
+      </div>
+    </main>
+  </div>
+  <script>
+
+    const form = document.getElementById("input");
+    const entryButton = document.getElementById("add-entry");
+
+    entryButton.addEventListener("click",()=>{
+      form.style.display = "block";
+      let box = form.getBoundingClientRect();
+      form.style.left = window.innerWidth/2 - box.width/2 + "px";
+      form.style.top = window.innerHeight/2 - box.height/2 + "px";
+    });
+
+    const moveForm = document.getElementById("move-form");
+    let fSel = false;
+    let mOff = {x:0,y:0};
+
+    moveForm.addEventListener("mousedown",
+     (e) => {
+      fSel = true;
+      mOff.x = e.clientX-(parseFloat(form.style.left)||0);
+      mOff.y = e.clientY-(parseFloat(form.style.top)||0);
+     });
+
+     document.addEventListener("mouseup",
+     (e) => {
+      fSel = false;
+     });
+     document.addEventListener("mousemove", 
+     (e) => {
+        if(!fSel){return;}
+        form.style.left = e.clientX-mOff.x + "px";
+        form.style.top = e.clientY-mOff.y + "px";
+     }
+    );
+    const table = document.getElementById("main-table");
+    let devos = [];
+    function addDevos(speaker,title,location,year){
+      devos.push(
+        {
+          sp:speaker,
+          title:title,
+          loc:location,
+          year:year
+        }
+      );
+    }
+    function updateTable(t){
+      for(let i = 0; i < devos.length; i++){
+        console.log(devos[i]);
+        const row = document.createElement("tr");
+        const sp = document.createElement("td");
+        const title = document.createElement("td");
+        const loc = document.createElement("td");
+        const year = document.createElement("td");
+
+        sp.innerText = devos[i].sp;//make a template maybe
+        title.innerText = devos[i].title;
+        loc.innerText = devos[i].loc;
+        year.innerText = devos[i].year;
+        
+        row.appendChild(sp);
+        row.appendChild(title);
+        row.appendChild(loc);
+        row.appendChild(year);
+
+        t.appendChild(row);
+      }
+      devos = [];
+    }
+    
+    addDevos("Selena Robins","Spiritual Discernment","BYUI",2026);
+    addDevos("B Corey Cuvelier","A Great Check","BYUI",2026);
+    addDevos("Trent Shippen","Become Legendary","BYUI",2026);
+    addDevos("Keith A. Erekson","How to Avoid Deception in the Information Age","BYUI",2026);
+    updateTable(table);
+
+    let formData = document.getElementsByClassName("entry-inp");
+    const submit = document.getElementById("submit-entry");
+    submit.addEventListener("click", (e)=>{
+      addDevos(formData[0].value,formData[1].value,formData[2].value,formData[3].value.slice(0,4));
+      updateTable(table);
+      form.style.display = "none";
+    });
+  </script>
+</body>
+</html>

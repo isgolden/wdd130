@@ -1,0 +1,280 @@
+@font-face {
+    font-family: "lemon-milk-bold";
+    src: url('../fonts/lemon_milk/LEMONMILK-Bold.otf');
+    letter-spacing: -0.5em;
+
+}
+
+@font-face {
+    font-family: "lemon-milk";
+    src: url('../fonts/lemon_milk/LEMONMILK-Medium.otf');
+    letter-spacing: -0.5em;
+}
+
+:root {
+    --pc: #C0C0C0;
+    --sc: #EBEBEB;
+    --ac1: #00072D;
+    --ac2: #3A6EA5;
+
+    --absMaxTopBarH: 200px;
+    --maxTopBarH: 35vh;
+    --absMinTopBarH: 75px;
+    --minTopBarH: 10vh;
+
+    --slide-card-width:100vw;
+}
+
+body {
+    overflow-x:hidden;
+    background-color: var(--ac2);
+    font-family: "lemon-milk";
+    margin: 0;
+    padding: 0;
+    width: 100vh;
+    height: 100vw;
+}
+
+.icon {
+    width: 80px;
+}
+
+/*HEADER*/
+
+header {
+    font-family: "lemon-milk-bold";
+    height: 35vh;
+    width: 100vw;
+    margin: 0;
+    padding: 0;
+    min-height: var(--absMinTopBarH);
+    max-height: var(--absMaxTopBarH);
+}
+
+header .logo {
+    height: 100%;
+    z-index: 2;
+}
+
+#reserveTop {
+    height: 35vh;
+    min-height: var(--absMinTopBarH);
+    max-height: var(--absMaxTopBarH);
+}
+
+#hero-box {
+    border: var(--ac1) solid 5px;
+    position: relative;
+    min-height: 200px;
+    z-index: 1;
+    display: flex;
+    align-items: flex-end;
+    justify-content: center;
+    padding: 0px;
+    margin:50px 0 50px 0;
+}
+
+.home-title {
+    color: var(--ac1);
+    margin: 0px;
+}
+
+#hero-img {
+    width: 100%;
+    z-index: 1;
+}
+
+#hero-msg {
+    position: absolute;
+    z-index: 2;
+}
+
+#topBar {
+    z-index: 5;
+    position: fixed;
+    display: flex;
+    background-color: var(--sc);
+    justify-content: space-between;
+    width: 100%;
+    min-height: var(--absMinTopBarH);
+    max-height: var(--absMaxTopBarH);
+}
+
+#backBar {
+    position: absolute;
+    z-index: -1;
+    height: 75%;
+    width: 100%;
+    background-color: var(--ac1);
+    align-self: center;
+}
+
+nav {
+    display: flex;
+    height: 75%;
+    width: 100%;
+    align-self: center;
+    font-size: 2em;
+}
+
+nav a {
+    width: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: var(--sc);
+    text-decoration: none;
+    font-family: "lemon-milk";
+    font-size: 0.7em;
+}
+
+nav a:hover {
+    background-color: var(--pc);
+    color: var(--ac1);
+}
+
+/* CARDS */
+#card-container {
+    position: relative;
+    display: flex;
+    place-self: center;
+    justify-content:center;
+    width: var(--slide-card-width);
+    height: 75vh;
+    max-height: 900px;
+    margin: 0 0 100px 0;
+}
+
+.slide-button {
+    box-sizing:content-box;
+    font-family: "lemon-milk-bold";
+    position: absolute;
+    display: grid;
+    top: 12.5vh;
+    z-index: 2;
+    border: var(--ac1) solid 5px;
+    color: var(--ac1);
+    background-color: var(--sc);
+    font-size: 2em;
+    line-height: 25px;
+    width: 50px;
+    height: 50vh;
+    place-items: center;
+    transition: left 1s;
+}
+
+#card-forward {
+    right: 0;
+}
+#card-back{
+        left:0;
+}
+
+.slide-button:active {
+    background-color: var(--pc);
+    color:var(--ac2);
+}
+
+.slide-card {
+    position: absolute;
+    left: n;
+    width: 100%;
+    height: 75vh;
+    max-height: 900px;
+    display: inline-block;
+    background: white;
+    border: black solid 5px;
+}
+
+
+/* MAIN GRID */
+.home-grid {
+    display: grid;
+    width: 100vw;
+    margin: 25px 0 25px 0;
+}
+
+.book {
+    text-decoration: none;
+}
+
+.book:hover,
+.join:hover {
+    background-color: var(--ac2);
+    color: var(--sc);
+}
+
+#content {
+    /* currently useless right now, rework later.*/
+    position: relative;
+    max-width: 1200px;
+    width: 100vw;
+    margin: 0px;
+}
+
+nav a,
+.button-box,
+main section {
+    text-align: center;
+}
+
+#background {
+    background-color: var(--sc);
+    height: 725px;
+}
+
+.msg {
+    background-color: var(--pc);
+}
+
+.msg h2 {
+    color: var(--pc);
+}
+
+.msg p {
+    color: var(--sc);
+}
+
+footer {
+    font-family: "lemon-milk-bold";
+    background-color: var(--sc);
+    font-size: 0.75em;
+}
+
+footer p {
+    font-size: 1.2em;
+}
+
+footer a {
+    color: var(--pc);
+    text-decoration: none;
+    font-size: 0.8em;
+}
+
+footer a:hover {
+    color: var(--pc);
+}
+
+footer p a:hover {
+    color: var(--pc);
+    text-decoration: underline;
+}
+
+footer .social img {
+    padding-top: 10px;
+    margin: auto;
+    max-width: 5%;
+
+}
+
+h4 {
+    color: var(--ac1);
+}
+
+main section {
+    display: inline-block;
+}
+
+.card-img {
+    border: 10px solid var(--ac1);
+}

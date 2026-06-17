@@ -1,0 +1,99 @@
+@font-face {
+    font-family:"Slabo";
+    src:url(../../fonts/Slabo_27px/Slabo27px-Regular.ttf);
+}
+@font-face {
+    font-family:"Bungee";
+    src:url(../../fonts/Bungee_Shade/BungeeShade-Regular.ttf);
+
+}
+
+ul {
+    display:flex;
+    justify-content:space-evenly;
+}
+li {
+    list-style:none;
+}
+
+
+
+body {
+    align-items: center;
+    justify-content:center;
+    display:flex;
+    margin:0px;
+    padding:0px;
+    background: linear-gradient(180deg, rgba(176, 55, 55, 1) 0%, rgba(209, 187, 115, 1) 50%, rgba(237, 221, 83, 1) 100%);
+}
+
+img {
+    top:0px;
+    z-index:-1;
+    position:fixed;
+    left:0px;
+    margin:auto;
+    height:100vh;
+}
+
+#wrapper {
+    margin:auto;
+    border:solid 2px antiquewhite;
+    width:60%;
+    max-width:1200px;
+    background-color:#35353590;
+    color:#D9D9D9;
+    margin:0px;
+}
+
+main {
+    font-family:"Slabo";
+    display: flex;
+    justify-content: center;
+    flex-direction: column;
+}
+
+@keyframes bounce{
+    from {
+        rotate:-5deg;
+    }
+    to {
+        rotate: 5deg;
+    }
+}
+
+main h1 {
+    border:2px solid #D9D9D9;
+    width:100%;
+    margin:0px;
+    background-color:#284B63;
+    color:#D9D9D9;
+    font-family:"Bungee";
+    text-align:center;
+    font-size: 3em;
+    animation-duration: 1s;
+    animation-name:bounce;
+    animation-iteration-count: infinite;
+    animation-direction:alternate;
+    animation-timing:ease;
+}
+main h1
+
+main section:nth-child(3) {
+    border-top:solid 2px antiquewhite;
+}
+
+section {
+    transition: all 0.5s ease-in-out;
+    height:50px;
+    overflow:hidden;
+    border-bottom:solid 2px antiquewhite;
+    flex-direction: column;
+    display: flex;
+    text-align: center;
+}
+section:hover {
+    height:calc(200px);
+}
+
+section h2 {}
