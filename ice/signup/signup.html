@@ -1,0 +1,167 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Daily Feed Sign Up</title>
+
+    <style>
+
+        @font-face {
+            font-family:"Homemade Apple";
+            src:url(fonts/Homemade_Apple/HomemadeApple-Regular.ttf);
+        }
+
+        * {
+            margin: 0;
+        }
+
+        body {
+            background: rgb(120, 96, 64);
+            display:flex;
+        }
+        #join {
+            margin:auto;
+        }
+        .down {
+            position:fixed;
+            top:100vh !important;
+        }
+        #formContainer {
+            transition-property:top;
+            transition-duration: 1s;
+            transition-timing-function: cubic-bezier(0.075, 0.82, 0.165, 1);
+            position:fixed;
+            top:0;
+            font-family:"Homemade Apple";
+            padding:10px;
+            margin:auto;
+            filter:drop-shadow(10px 25px 15px black);
+            background-image:url(images/parchment.jpeg);
+            background-size:cover;
+            width:80vw;
+            height:90vh;
+            form {
+                width:100%;
+                height:100%;
+            }
+            section {
+                min-height:50px;
+                border: 2px solid black;
+                text-align:center;
+                display:grid;
+            }
+            input,label {
+                background-color:rgba(0,0,0,0);
+                border-style:solid;
+                border-color:black;
+                border-top-width:0;
+                border-bottom-width:0;
+            }
+            button {
+                background:rgba(0,0,0,0);
+                border:2px solid black;
+            }
+            input[type=checkbox] {
+                margin: 0;
+                font: inherit;
+            }
+            #top {
+                grid-template-columns:1fr 5fr 1fr;
+            }
+            #account {
+                grid-template-columns:1fr 3fr 1fr 3fr;
+
+            }
+            #contact {
+                grid-template-columns:2fr 3fr 2fr 2fr 1fr 2fr 1fr;
+            }
+            #agree {
+                grid-template-columns: 7fr 1fr 7fr 1fr;
+            }
+            #submit {
+                
+            }
+        }
+    </style>
+
+
+
+
+</head>
+
+<body>
+    <button id ="join">join the daily scripture feed?</button>
+    <div id="formContainer" class="down">
+        <form id="myForm">
+            <section id="top">
+                <button type="button" id="closeBtn">X</button>
+                <h3>Sign Up for Daily Scripture Feed</h3>
+            </section>
+            <section id="account">
+                <label for="username">User Name:</label>
+                <input type="text" id="username" name="username" required>
+                <label for="password">Password:</label>
+                <input type="password" id="password" name="password" required>
+            </section>
+            <section id="contact">
+                <label for="email">Email:</label>
+                <input type="email" id="email" name="email" required>
+                <label>Gender :</label>
+                <label for="male">Male:</label>
+                <input type="radio" id="male" name="gender" value="male" required>
+                <label for="female">Female:</label>
+                <input type="radio" id="female" name="gender" value="female" required>
+            </section>
+            <section id="agree">
+                <label for="newsletter">Subscribe to newsletter</label>
+                <input type="checkbox" id="newsletter" name="newsletter">
+                <label for="conditions">I acknowledge the terms and conditions</label>
+                <input type="checkbox" id="conditions" name="conditions" required>
+            </section>
+            <button id="submit" type="submit">Submit</button>
+        </form>
+    </div>
+
+    <div id="output"></div>
+
+    <script>
+        // Here is some Javascript to start looking forward to wdd131
+        const form = document.getElementById('myForm');
+        const formCont = document.getElementById("formContainer");
+        const output = document.getElementById('output');
+        document.getElementById("closeBtn").addEventListener("click", function () {
+            formCont.classList.add("down");
+         });
+        document.getElementById("join").addEventListener("click",() => {
+            formCont.classList.remove("down");
+        });
+
+        form.addEventListener('submit', function (event) {
+            event.preventDefault(); // Stop form from actually submitting
+
+            const formData = new FormData(form);
+            const entries = [];
+
+            for (const [key, value] of formData.entries()) {
+                if (key == "password") {
+                    entries.push(`<strong>${key}</strong>: ${value} (you should probably encrypt the password)`);
+                } else {
+                    entries.push(`<strong>${key}</strong>: ${value}`);
+                }
+            }
+
+            output.innerHTML = `
+            <br>  
+            <h3>Here is the data that would be sent to the server:</h3>
+            <ul>
+                ${entries.map(item => `<li>${item}</li>`).join('')}
+            </ul>
+            `;
+                });
+    </script>
+
+</body>
+
+</html>
