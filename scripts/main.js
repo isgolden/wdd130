@@ -47,6 +47,16 @@ let mx = 0;
 let my = 0;
 
 class CMD {
+	static maxHistLen = 2000; // in chars
+	static tempest(){}
+	static exec(str){
+		const opt = str.split(" ");
+		if(!CMD[opt[0]]){
+			return;
+		}
+	}
+	hist = [];
+	buffer = []; // array of chars, so we dont have to manipulate strings directly. is this even better?
 	
 }
 
@@ -508,10 +518,54 @@ class WHIM {
 		}
 	}
 	
-	static createWindowTemplate(name,x,y,w,h){
+	static createNavBarTemplate(name,href){
+		const cont = document.createElement("div");
+		const bar = document.createElement("input");
+		const back = document.createElement("button");
+		const forward = document.createElement("button");
+		const reload = document.createElement("button");
+		
+		bar.name = name;
+		back.name = name;
+		forward.name = name;
+		reload.name = name;
+		
+		bar.type = "text";
+		
+		cont.className = "WHIMWebNav"
+		bar.className = "WHIMSearch";
+		back.className = "WHIMBack";
+		forward.className = "WHIMForward";
+		reload.className = "WHIMReload";
+		
+		reload.innerText = "reload";
+		forward.innerText = ">";
+		back.innerText = "<";
+		
+		bar.classList.add("WHIMInfoButton");
+		back.classList.add("WHIMNInfoButton");
+		forward.classList.add("WHIMInfoButton");
+		reload.classList.add("WHIMInfoButton");
+
+		back.addEventListener("click",WHIM.handleBack);
+		forward.addEventListener("click",WHIM.handleForward);
+		reload.addEventListener("click",WHIM.handleReload);
+
+
+		bar.value = href;
+		
+		cont.appendChild(reload);
+		cont.appendChild(back);
+		cont.appendChild(forward);
+		cont.appendChild(bar);
+
+		return [cont,bar];
+	}
+	static createWindowTemplate(name,x,y,w,h,hasNav){
 		let wind = document.createElement("div");
 		let content = document.createElement("div");
 		let topbar = document.createElement("div");
+		let infobar = document.createElement("div");
 		let title = document.createElement("p");
 		let close = document.createElement("button");
 		let maxim = document.createElement("button");
@@ -544,11 +598,13 @@ class WHIM {
 		nav.appendChild(close);
 		topbar.appendChild(title);
 		topbar.appendChild(nav);
+		infobar.appendChild(topbar);
 		
 		nav.className = "WHIMNav";
 		topbar.className = "WHIMTopBar";
+		infobar.className = "WHIMInfoBar";
 		content.className = "WHIMContent";
-		wind.appendChild(topbar);
+		wind.appendChild(infobar);
 		wind.appendChild(content);
 		
 		wind.className = "WHIMPage";
@@ -557,10 +613,61 @@ class WHIM {
 		wind.style.width = w+"px";
 		wind.style.height = h+"px";
 		
-		return [wind,content];
+		let navFrame = 0;
+
+		if(hasNav){
+			navFrame = WHIM.createNavBarTemplate(name,WHIM.ws[name].src);
+			infobar.appendChild(navFrame[0]);
+		}
+		
+		return [wind,content,navFrame[0],navFrame[1]];
 	}
 	
+	static handleLink(e){
+		let href = e.target.contentWindow.location.href;
+		let whim = WHIM.ws[e.target.name];
+		whim.src = href;
+		whim.title.innerHTML = e.target.contentDocument.title;
+		whim.bar.value = href;
+		if(whim.history[whim.history.length-1] !== href){
+			whim.history.push(href);
+		}
+		if(whim.future[0] !== href && !whim.backing){
+			whim.future = [];
+		}
+		whim.backing = false;
+	}
+
+	static handleBack (e){
+		const whim = WHIM.ws[e.target.name];
+		if(whim.history.length <= 1){return;}
+		whim.future.push(whim.src);// these might get desynced
+		whim.history.pop();
+		whim.frame.src = whim.history[whim.history.length-1];// first is the website we are currently on.
+		whim.backing = true;
+		console.log(whim.future, whim.history);
+	}
+	static handleForward (e){
+		const whim = WHIM.ws[e.target.name];
+		if(whim.future.length === 0){return;}
+		whim.frame.src = whim.future[0];
+		whim.future.splice(0,1);
+		console.log(whim.future, whim.history);
+	}
+	static handleReload (e){
+		const whim = WHIM.ws[e.target.name];
+		whim.frame.contentWindow.location.reload();
+	}
+	
+	history = []
+	future = []
+	backing = false;
+
 	node;
+	frame;
+	src;
+	bar;
+	title;
 	x = 0;
 	y = 0;
 	w = 100;
@@ -574,19 +681,33 @@ class WHIM {
 	rSel = vec2();
 	mOff = vec2();
 	
-	constructor(name,x,y,w,h,content){
+	constructor(name,x,y,w,h,href,mode){
 		this.x = x;
 		this.y = y;
 		this.w = w;
 		this.h = h;
+		this.src = href;
+		this.mode = mode || this.mode;
 		WHIM.ws[name] = this;//overriding other windows, maybe have a better system?
-		let tmp = WHIM.createWindowTemplate(name,x,y,w,h);
+		let tmp = WHIM.createWindowTemplate(name,x,y,w,h,true);
 		tmp[0].id = name;
 		tmp[0]["z-index"] = 0;
-		if(content){
-			tmp[1].appendChild(content);
+
+		this.bar = tmp[3]
+		this.frame = document.createElement("iframe");
+		if(href){
+			if(href.substring(0,3) !== "http"){
+				href = URL.parse(href,window.location.href);
+			}
+			this.frame.src = href;
+			tmp[1].appendChild(this.frame);
 		}
+
+		this.frame.name = name;
+		this.frame.onload = WHIM.handleLink;
 		this.node = WHIM.DOMParent.appendChild(tmp[0]);
+
+		this.title = document.querySelector(`#${name} .WHIMTitle`);
 	}
 	handleClick(e){
 		const box = this.node.getBoundingClientRect();
@@ -663,7 +784,11 @@ class ICO {
 		
 		return contain;
 	}
-	exec:"";
+	static onDBClick(name){
+		const ico = ICO.ics[name];
+		CMD.exec(ico.exec);
+	}
+	exec = "";
 	node;
 	icon;
 	title;
@@ -676,15 +801,14 @@ class ICO {
 		ico.style.top = y+"px";
 		
 		this.node = ICO.DOMParent.appendChild(ico);
+		this.node.addEventListener("dbclick",ICO.onDBClick);
 		ICO.ics[name] = this;
 	}
 	
 }
 
-const homeContent = document.getElementById("home").cloneNode(true);
-homeContent.style.display = "";
-let whim = new WHIM("Welcome",100,100,550,550,homeContent);
-const icon = new ICO(100,100,"Homepage","img/spinning-ia-logo.gif");
+let whim = new WHIM("Welcome",100,100,550,550,"pages/portal.html");
+// const icon = new ICO(100,100,"Homepage","img/spinning-ia-logo.gif");
 
 const time = new Date();
 const clock = document.getElementById("clock");
